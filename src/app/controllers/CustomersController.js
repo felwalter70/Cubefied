@@ -7,7 +7,7 @@ let customers = [
     { id: 4, name: 'Cordero' },
 ];
 
-class CustomersControllers {
+class CustomersController {
     constructor() {
     }
 
@@ -68,4 +68,4 @@ class CustomersControllers {
     }
 }
 
-export default new CustomersControllers();
+export default new CustomersController();
