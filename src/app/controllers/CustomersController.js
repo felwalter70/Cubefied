@@ -1,70 +1,163 @@
-import Customer from '../models/Customer';
+import { Op } from 'sequelize';
+import { parseISO } from 'date-fns';
+import * as Yup from 'yup';
 
-let customers = [
-    { id: 1, name: 'Fel' },
-    { id: 2, name: 'Machado' },
-    { id: 3, name: 'Samu' },
-    { id: 4, name: 'Cordero' },
-];
+import Customer from '../models/Customer';
+import Contact from '../models/Contact';
 
 class CustomersController {
     constructor() {
     }
 
     async index(req, res) {
+        const {
+            name, email, status, createdBefore,
+            createdAfter, updatedBefore, updatedAfter, sort,
+        } = req.query;
+
+        const page = req.page || 1;
+        const limit = req.limit || 25;
+
+        let where = {};
+        let order = [];
+
+        if (name) {
+            where = {
+                ...where,
+                name: {
+                    [Op.iLike]: name,
+                },
+            };
+        }
+
+        if (email) {
+            where = {
+                ...where,
+                email: {
+                    [Op.iLike]: email,
+                },
+            };
+        }
+
+        if (status) {
+            where = {
+                ...where,
+                status: {
+                    [Op.in]: status.split(',').map(item => item.toUpperCase()),
+                },
+            };
+        }
+
+        if (createdBefore) {
+            where = {
+                ...where,
+                createdAt: {
+                    [Op.lte]: parseISO(createdBefore),
+                },
+            };
+        }
+
+        if (createdAfter) {
+            where = {
+                ...where,
+                createdAt: {
+                    [Op.gte]: parseISO(createdAfter),
+                },
+            };
+        }
+
+        if (updatedBefore) {
+            where = {
+                ...where,
+                upadatedAt: {
+                    [Op.lte]: parseISO(updatedBefore),
+                },
+            };
+        }
+
+        if (updatedAfter) {
+            where = {
+                ...where,
+                updatedAt: {
+                    [Op.gte]: parseISO(updatedAfter),
+                },
+            };
+        }
+
+        if (sort) {
+            order = sort.split(',').map(item => item.split(':'));
+        }
+
         const data = await Customer.findAll({
-            limit: 1000,
+            where: where,
+            order: order,
+            limit: limit,
+            offset: limit * page - limit,
+            include: {
+                model: Contact,
+                attributes: ['id', 'status'],
+            },
         });
 
         return res.json(data);
     }
 
-    show(req, res) {
-        const id = parseInt(req.params.id);
-        const customer = customers.find(customer => customer.id === id);
-        const status = customer ? 200 : 404;
+    async show(req, res) {
+        const id = req.params.id;
+        const customer = await Customer.findByPk(id);
 
-        return res.status(status).json(customer);
+        if (!customer)
+            return res.status(404).json();
+
+        return res.json(customer);
     }
 
-    create(req, res) {
-        const { name } = req.body;
-        const newId = customers[customers.length - 1].id + 1;
+    async create(req, res) {
+        const schema = Yup.object().shape({
+            name: Yup.string().required(),
+            email: Yup.string().email().required(),
+            status: Yup.string().uppercase(),
+        });
 
-        const newCustomer = { id: newId, name: name };
+        if (!(await schema.isValid(req.body)))
+            return res.status(400).json({ error: 'Error on validate schema' });
 
-        customers.push(newCustomer);
+        const newCustomer = await Customer.create(req.body);
 
         return res.status(201).json(newCustomer);
     }
 
-    update(req, res) {
-        const id = parseInt(req.params.id);
-        const { name } = req.body;
-        const index = customers.findIndex(customer => customer.id === id);
+    async update(req, res) {
+        const schema = Yup.object().shape({
+            name: Yup.string(),
+            email: Yup.string().email(),
+            status: Yup.string().uppercase(),
+        });
 
-        const status = index >= 0 ? 200 : 404;
+        if (!(await schema.isValid(req.body)))
+            return res.status(400).json({ error: 'Error on validate schema' });
 
-        if (index >= 0) {
-            const newName = name;
+        const id = req.params.id;
+        const customer = await Customer.findByPk(id);
 
-            customers[index].name = newName;
-        }
+        if (!customer)
+            return res.status(404).json();
 
-        return res.status(status).json(customers[index]);
+        await customer.update(req.body);
+
+        return res.json(customer);
     }
 
-    destroy(req, res) {
-        const id = parseInt(req.params.id);
-        const index = customers.findIndex(customer => customer.id === id);
+    async destroy(req, res) {
+        const id = req.params.id;
+        const customer = await Customer.findByPk(id);
 
-        const status = index >= 0 ? 200 : 404;
+        if (!customer)
+            return res.status(404).json();
 
-        if (index >= 0) {
-            customers.splice(index, 1);
-        }
+        customer.destroy();
 
-        return res.status(status).json();
+        return res.status(200).json();
     }
 }
 

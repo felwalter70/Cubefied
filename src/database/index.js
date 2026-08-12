@@ -10,14 +10,22 @@ const models = [Customer, Contact, User];
 
 class Database {
     constructor() {
-        this.conection = new Sequelize(databaseConfig);
+        this.connection = new Sequelize(databaseConfig);
 
         this.init();
+        this.associate();
     }
 
     init() {
         models.forEach(model => {
-            model.init(this.conection);
+            model.init(this.connection);
+        });
+    }
+
+    associate() {
+        models.forEach(model => {
+            if (model.associate)
+                model.associate(this.connection.models);
         });
     }
 }
