@@ -1,7 +1,6 @@
 'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
-/* eslint-disable no-undef */
 module.exports = {
     async up(queryInterface, Sequelize) {
         return queryInterface.createTable('customers', {

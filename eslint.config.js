@@ -2,9 +2,11 @@ import js from '@eslint/js';
 import stylistic from '@stylistic/eslint-plugin';
 
 import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 export default [
     js.configs.recommended,
+    ...tseslint.configs.recommended,
 
     stylistic.configs.customize({
         indent: 4,
@@ -15,10 +17,13 @@ export default [
     }),
 
     {
+        files: ['**/*.{js,mjs,cjs,ts,tsx}'],
+
         languageOptions: {
             globals: {
                 ...globals.browser,
                 ...globals.node,
+                cheet: 'readonly',
             },
         },
 

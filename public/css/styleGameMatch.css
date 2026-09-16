@@ -192,12 +192,12 @@ h2 {
 
 
 #btn-rejogar {
-    background-image: url(../imgs/imgRejogar.png);
+    background-image: url(/imgs/imgRejogar.png);
     left: 0%;
 }
 
 #btn-voltar-menu {
-    background-image: url(../imgs/imgVoltarMenu.png);
+    background-image: url(/imgs/imgVoltarMenu.png);
     right: 0%;
 }
 
