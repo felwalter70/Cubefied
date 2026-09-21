@@ -7,7 +7,7 @@ async function start() {
     try {
         await database.connection.authenticate();
 
-        app.listen(process.env.PORT, () => {
+        app.listen(Number(process.env.PORT), '0.0.0.0', () => {
             console.log('Server started');
         });
     }

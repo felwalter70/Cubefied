@@ -6,8 +6,8 @@ interface IListProps {
 
 export function List({ children }: IListProps) {
     return (
-        <ol>
+        <ul>
             {children}
-        </ol>
+        </ul>
     );
 }

@@ -1,1 +1,1 @@
-export const soundsPath = '/sounds/';
+export const soundsPath = '../sounds/';
