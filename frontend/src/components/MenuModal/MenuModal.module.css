@@ -1,0 +1,41 @@
+.menuModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 80%;
+
+    background-color: #040a1c;
+    border: 1px solid white;
+    border-radius: 16px;
+    z-index: 2;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "title"
+    "body";
+
+    h2 {
+        font-size: 5rem;
+        color: white;
+        grid-area: title;
+        text-align: center;
+        margin: 1rem;
+    }
+    
+    p {
+        align-self: self-start;
+        font-size: 2rem;
+        color: white;
+        text-align: center;
+    }
+
+    * {
+        grid-area: body;
+        justify-self: center;
+        align-self: center;
+    }
+}

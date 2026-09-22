@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    font-family: Bricolage Grotesque;
+}
+
+html, body {
+    height: 100vh;
+}
+
+.brandRegister {
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    color: white;
+    font-family: Climate Crisis;
+    font-size: 1rem;
+}

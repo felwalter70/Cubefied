@@ -1,3 +1,12 @@
+.nabla {
+    font-family: "Nabla", system-ui;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+        "EDPT" 92,
+        "EHLT" 12;
+}
 
 body {
     background-image: url(../imgs/fundoSelecaoArmas.png);
@@ -622,6 +631,10 @@ header h1 {
     color: white;
     font-size: 5em;
     margin: 10% 0% 0% 0%;
+    font-family: "Jaro", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 

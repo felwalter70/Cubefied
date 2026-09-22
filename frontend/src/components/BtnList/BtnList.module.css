@@ -1,0 +1,7 @@
+.btnList {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem 0;
+    justify-content: space-evenly;
+}
