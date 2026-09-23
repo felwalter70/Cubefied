@@ -1,50 +1,11 @@
-.menuBtn {
-    width: 17rem;
-    height: 5.5rem;
-    border: none;
+.btn {
     cursor: pointer;
-    position: relative;
-    margin: 1rem;
-    
+    border: none;
     background-color: #febc4e;
-    
-    /* Fonte estilo Retro */
     font-family: Pixelify Sans, 'Courier New', Courier, monospace; /* Substitua por uma fonte Pixel se tiver */
-    font-size: 3.2rem;
     font-weight: bold;
     color: #552a0e;
     text-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
-    
-    clip-path: polygon(
-        /* Canto Superior Esquerdo */
-        1px 9px, 1px 6px, 2px 6px, 2px 3px, 3px 3px, 3px 2px, 6px 2px, 6px 1px, 9px 1px,
-        /* Canto Superior Direito */
-        calc(100% - 9px) 1px, calc(100% - 6px) 1px, calc(100% - 6px) 2px, calc(100% - 3px) 2px, calc(100% - 3px) 3px, calc(100% - 2px) 3px, calc(100% - 2px) 6px, calc(100% - 1px) 6px, calc(100% - 1px) 9px,
-        /* Canto Inferior Direito */
-        calc(100% - 1px) calc(100% - 9px), calc(100% - 1px) calc(100% - 6px), calc(100% - 2px) calc(100% - 6px), calc(100% - 2px) calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) calc(100% - 2px), calc(100% - 6px) calc(100% - 2px), calc(100% - 6px) calc(100% - 1px), calc(100% - 9px) calc(100% - 1px),
-        /* Canto Inferior Esquerdo */
-        9px calc(100% - 1px), 6px calc(100% - 1px), 6px calc(100% - 2px), 3px calc(100% - 2px), 3px calc(100% - 3px), 2px calc(100% - 3px), 2px calc(100% - 6px), 1px calc(100% - 6px), 1px calc(100% - 9px)
-    );
-
-
-    /* Sombras ajustadas para o novo formato */
-    box-shadow: 
-        /* Contorno externo preto bem grosso (acentuado) */
-        inset 0 0 0 5px #4b2800,
-        
-        /* Sombra de profundidade marrom bem larga (baixo e direita) */
-        inset -10px -10px 0 0px #944e15,
-        
-        /* Borda interna escura geral */
-        inset 10px 10px 0 0px #944e15,
-        
-        /* Brilho do topo dourado forte para contrastar */
-        inset 14px 14px 0 0px #fff099,
-        
-        /* O gradiente fatiado dividindo o botão na metade de baixo */
-        inset 0 -40px 0 0px #e29325;
-        
-    image-rendering: pixelated;
 
     &:hover {
         scale: 1.1;
@@ -55,11 +16,78 @@
         scale: 1.05;
     }
 
-    transition: 200ms all ease;
+    img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 5rem;
+    }
 
-    @media (min-height: 750px) {
-        width: 21rem;
-        height: 7.5rem;
-        font-size: 4rem;
+    transition: 200ms all ease;
+    
+    clip-path: polygon(
+        /* Canto Superior Esquerdo */
+        1px 9px, 1px 6px, 2px 6px, 2px 3px, 3px 3px, 3px 2px, 6px 2px, 6px 1px, 9px 1px,
+        /* Canto Superior Direito */
+        calc(100% - 9px) 1px, calc(100% - 6px) 1px, calc(100% - 6px) 2px, calc(100% - 3px) 2px, calc(100% - 3px) 3px, calc(100% - 2px) 3px, calc(100% - 2px) 6px, calc(100% - 1px) 6px, calc(100% - 1px) 9px,
+        /* Canto Inferior Direito */
+        calc(100% - 1px) calc(100% - 9px), calc(100% - 1px) calc(100% - 6px), calc(100% - 2px) calc(100% - 6px), calc(100% - 2px) calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) calc(100% - 2px), calc(100% - 6px) calc(100% - 2px), calc(100% - 6px) calc(100% - 1px), calc(100% - 9px) calc(100% - 1px),
+        /* Canto Inferior Esquerdo */
+        9px calc(100% - 1px), 6px calc(100% - 1px), 6px calc(100% - 2px), 3px calc(100% - 2px), 3px calc(100% - 3px), 2px calc(100% - 3px), 2px calc(100% - 6px), 1px calc(100% - 6px), 1px calc(100% - 9px)
+        );
+        
+    image-rendering: pixelated;
+
+    &.defaultBtn {
+        width: 17rem;
+        height: 5.5rem;
+        margin: 1rem;
+        font-size: 3.2rem;
+    
+        /* Sombras ajustadas para o novo formato */
+        box-shadow: 
+            /* Contorno externo preto bem grosso (acentuado) */
+            inset 0 0 0 5px #4b2800,
+            
+            /* Sombra de profundidade marrom bem larga (baixo e direita) */
+            inset -10px -10px 0 0px #944e15,
+            
+            /* Borda interna escura geral */
+            inset 10px 10px 0 0px #944e15,
+            
+            /* Brilho do topo dourado forte para contrastar */
+            inset 14px 14px 0 0px #fff099,
+            
+            /* O gradiente fatiado dividindo o botão na metade de baixo */
+            inset 0 -40px 0 0px #e29325;
+            
+    
+        @media (max-height: 750px) and (max-width: 750px), (min-height: 750px) and (min-width: 750px) {
+            width: 25rem;
+            height: 7.5rem;
+            font-size: 3.5rem;
+        }
+    }
+
+    &.closeBtn {
+        width: 4rem;
+        height: 4rem;
+
+        box-shadow: 
+            /* Contorno externo preto bem grosso (acentuado) */
+            inset 0 0 0 3px #4b2800,
+            
+            /* Sombra de profundidade marrom bem larga (baixo e direita) */
+            inset -5px -5px 0 0px #944e15,
+            
+            /* Borda interna escura geral */
+            inset 5px 5px 0 0px #944e15,
+            
+            /* Brilho do topo dourado forte para contrastar */
+            inset 7px 7px 0 0px #fff099,
+            
+            /* O gradiente fatiado dividindo o botão na metade de baixo */
+            inset 0 -30px 0 0px #e29325;
     }
 }

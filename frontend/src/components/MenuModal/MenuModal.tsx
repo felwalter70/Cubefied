@@ -1,22 +1,16 @@
 import MenuModalStyles from './MenuModal.module.css';
 import { MenuBtn } from '../MenuBtn';
-
 interface IMenuModalProps {
     modalTitle?: string;
-    descText?: string;
     children?: React.ReactNode;
+    onClose(): void;
 }
 
-export function MenuModal({modalTitle, descText, children}: IMenuModalProps) {
-    function handleOnClick() {
-        
-    }
-
+export function MenuModal({modalTitle, children, onClose}: IMenuModalProps) {
     return (
         <div className={MenuModalStyles.menuModal}>
-            <MenuBtn onClick={handleOnClick}>
-                <img src="/imgs/" alt="" />
-            </MenuBtn>
+            <MenuBtn className={MenuModalStyles.closeBtn} onClick={onClose} variant='close' label='X'/>
+                
             <h2>{modalTitle}</h2>
 
             {children}

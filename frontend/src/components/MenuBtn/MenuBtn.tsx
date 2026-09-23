@@ -1,17 +1,38 @@
 import menuBtnStyles from './MenuBtn.module.css';
 
-interface IMenuBtnProps {
+type btnVariants = 'default' | 'close';
+interface IMenuBtnProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
     children?: React.ReactNode;
+    variant?: btnVariants;
     onClick(): void;
 }
 
-const hoverSound = new Audio('/sounds/hoverOption.wav');
+function getBtnType(variant: btnVariants) {
+    switch(variant) {
+        case 'default': return menuBtnStyles.defaultBtn;
+        case 'close': return menuBtnStyles.closeBtn;
 
-export function MenuBtn({label, children, onClick}: IMenuBtnProps) {
+    }
+}
+function getBtnVariant(variant: btnVariants) {
+    return `${menuBtnStyles.btn} ${getBtnType(variant)}`;
+}
+
+const hoverSound = new Audio('/sounds/hoverOption.wav');
+const selectionSound = new Audio('/sounds/optionSelect.mp3');
+
+export function MenuBtn({label, children, onClick, variant = 'default', className}: IMenuBtnProps) {
+
     function handleOnClick() {
+        selectionSound.currentTime = 0;
+        selectionSound.play();
+
         onClick();
     }
+
+    const btnVariant = getBtnVariant(variant);
+    const btnClass = `${btnVariant} ${className}`;
 
     function handleOnMouseOver() {
         hoverSound.currentTime = 0;
@@ -19,7 +40,7 @@ export function MenuBtn({label, children, onClick}: IMenuBtnProps) {
     }
 
     return (
-        <button className={menuBtnStyles.menuBtn} onClick={handleOnClick} onMouseOver={handleOnMouseOver}>
+        <button className={btnClass} onClick={handleOnClick} onMouseOver={handleOnMouseOver}>
             { label }
 
             { children }

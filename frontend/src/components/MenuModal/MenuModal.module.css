@@ -39,3 +39,11 @@
         align-self: center;
     }
 }
+
+.closeBtn  {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    grid-area: none;
+    font-size: 3.2rem;
+}
